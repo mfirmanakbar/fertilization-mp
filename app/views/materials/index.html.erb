@@ -8,7 +8,7 @@
 
   <table class="table table-bordered">
     <thead>
-      <tr>
+      <tr align="center">
         <th scope="col">No</th>
         <th scope="col">Material Name</th>
         <th scope="col">Current Stock Qty</th>
@@ -16,15 +16,15 @@
       </tr>
     </thead>
     <tbody>
-      <% @material_list.each do |val| %>
+      <% @material_list.each_with_index do |val, index| %>
       <tr>
-        <th scope="row">1</th>
-        <td> <%= val.material_name %> </td>
-        <td> <%= val.stock_qty %> </td>
-        <td>
+        <th scope="row"><%= (index+1) %></th>
+        <td align="left"><%= val.material_name %></td>
+        <td align="right"><%= number_with_delimiter(val.stock_qty) %></td>
+        <td align="center">
           <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-secondary btn-sm">Edit</button>
-            <button type="button" class="btn btn-danger btn-sm">Delete</button>
+            <button type="button" class="btn btn-secondary btn-sm"> Change </button>
+            <button type="button" class="btn btn-danger btn-sm"> Delete </button>
           </div>
         </td>
       </tr>

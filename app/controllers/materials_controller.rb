@@ -7,7 +7,7 @@ class MaterialsController < ApplicationController
   end
 
   def new
-
+    @material = Material.new
   end
 
   def edit
@@ -15,7 +15,13 @@ class MaterialsController < ApplicationController
   end
 
   def create
-
+    @material = Material.new(material_params)
+    if @material.save
+      flash[:success] = "Material was successfully created"
+      redirect_to materials_path
+    else
+      render 'new'
+    end
   end
 
   def update
@@ -31,9 +37,14 @@ class MaterialsController < ApplicationController
       # @material = Material.find(params[:id])
     end
 
+  def material_params
+    params.require(:material).permit(:material_name, :stock_qty)
+  end
+
   # edit/delete only for their own records
   def require_same_user
 
   end
+
 
 end
