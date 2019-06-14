@@ -4,6 +4,14 @@ class MaterialsController < ApplicationController
 
   def index
     @material_list = Material.all
+    respond_to do |format|
+      datenow = Time.now.strftime("%Y%d%m%H%M%S")
+      filenaming = ("material-" + datenow + ".csv")
+      format.html
+      format.csv { send_data @material_list.to_csv, :filename => filenaming }
+      # format.json { render json: @material_list }
+      # format.csv { send_data @material_list.to_csv }
+    end
   end
 
   def new
@@ -54,6 +62,7 @@ class MaterialsController < ApplicationController
   def require_same_user
 
   end
+
 
 
 end
