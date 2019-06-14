@@ -1,0 +1,35 @@
+<h4>Material Stock</h4>
+<hr>
+
+<div class="center">
+
+  <%= link_to 'Create New', new_material_path, class:"btn btn-success btn-sm" %>
+  <br><br>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">No</th>
+        <th scope="col">Material Name</th>
+        <th scope="col">Current Stock Qty</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @material_list.each do |val| %>
+      <tr>
+        <th scope="row">1</th>
+        <td> <%= val.material_name %> </td>
+        <td> <%= val.stock_qty %> </td>
+        <td>
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-secondary btn-sm">Edit</button>
+            <button type="button" class="btn btn-danger btn-sm">Delete</button>
+          </div>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>
