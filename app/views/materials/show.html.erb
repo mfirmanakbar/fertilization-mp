@@ -1,1 +1,28 @@
-Material show
+<h4>Material Stock - View</h4>
+<hr>
+
+<div class="row">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-header">
+          Form Material
+      </div>
+      <div class="card-body">
+
+        <%= form_for(@material, :html => {class: "form-horizontal", role: "form"} ) do |f| %>
+          <div class="form-group">
+            <label>Material Name</label>
+            <%= f.text_field :material_name, class: "form-control disabled", placeholder: "Enter Material Name ...", readonly: true %>
+            <small id="emailHelp" class="form-text text-muted">Name of Material for Fertilizer.</small>
+          </div>
+          <div class="form-group">
+            <label>Stock Qty</label>
+            <%= f.text_field :stock_qty, class: "form-control", placeholder: "Enter Stock Quantity ...", readonly: true  %>
+          </div>
+          <%= link_to 'Back', materials_path, class: "btn btn-danger btn-block" %>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>

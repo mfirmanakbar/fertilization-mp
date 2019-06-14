@@ -1,6 +1,6 @@
 class MaterialsController < ApplicationController
 
-  # before_action :set_material_by_id, only: [:edit, :update, :show, :destroy]
+  before_action :set_material_by_id, only: [:edit, :update, :show, :destroy]
 
   def index
     @material_list = Material.all
@@ -11,7 +11,7 @@ class MaterialsController < ApplicationController
   end
 
   def edit
-
+    # already set at before_action
   end
 
   def create
@@ -25,16 +25,25 @@ class MaterialsController < ApplicationController
   end
 
   def update
-
+    # the function already define in before_action
+    if @material.update(material_params)
+      flash[:success] = "Material was successfully updated"
+      redirect_to material_path(@material)
+    else
+      render 'edit'
+    end
   end
 
   def destroy
-
+    # already set at before_action
+    @material.destroy
+    flash[:success] = "Material was successfully deleted"
+    redirect_to materials_path
   end
 
   private
     def set_material_by_id
-      # @material = Material.find(params[:id])
+      @material = Material.find(params[:id])
     end
 
   def material_params
