@@ -1,0 +1,41 @@
+<h4>Import CSV into Database - Material Stock</h4>
+<hr>
+
+<div class="row">
+  <div class="col-sm-8">
+    <div class="card">
+      <div class="card-header">
+          <div class="row">
+            <div class="col-6">
+              File CSV
+            </div>
+            <div class="col-6" align="right">
+              <%= link_to "Download Template Import", materials_download_template_path, target: '_self' %>
+            </div>
+          </div>
+      </div>
+      <div class="card-body">
+
+        <%= form_tag import_materials_path, multipart: true do %>
+          <div class="input-group mb-3">
+              <div class="custom-file" text-align="center">
+                  <%= file_field_tag :file, :id => 'inputGroupFile02', class: "custom-file-input" %>
+                  <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+              </div>
+              <div class="input-group-append">
+                  <%= submit_tag "Submit", class: "btn btn-primary" %>
+              </div>
+          </div>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    $('#inputGroupFile02').on('change',function(){
+        var fileName = $(this).val();
+        $(this).next('.custom-file-label').html(fileName); //replace the "Choose a file" label
+    })
+</script>

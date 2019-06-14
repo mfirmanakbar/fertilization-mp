@@ -10,7 +10,6 @@ class MaterialsController < ApplicationController
       format.html
       format.csv { send_data @material_list.to_csv, :filename => filenaming }
       # format.json { render json: @material_list }
-      # format.csv { send_data @material_list.to_csv }
     end
   end
 
@@ -20,6 +19,10 @@ class MaterialsController < ApplicationController
 
   def edit
     # already set at before_action
+  end
+
+  def import_csv
+
   end
 
   def create
@@ -49,19 +52,41 @@ class MaterialsController < ApplicationController
     redirect_to materials_path
   end
 
+  def import
+    if get_file_params != nil
+      Material.to_import(get_file_params)
+      flash[:success] = "Material was successfully Imported"
+      redirect_to materials_path
+    else
+      flash[:danger] = "Failed to import Material from CSV"
+      redirect_to materials_path
+    end
+  end
+
+  def download_template
+    send_file("#{Rails.root}/app/assets/template-material-import.csv",
+      :type=> "application/csv",
+      :disposition=> "attachment; filename=template-material-import.csv")
+  end
+
+  # begin-private
   private
     def set_material_by_id
       @material = Material.find(params[:id])
     end
 
-  def material_params
-    params.require(:material).permit(:material_name, :stock_qty)
-  end
+    def get_file_params
+      params[:file]
+    end
 
-  # edit/delete only for their own records
-  def require_same_user
+    def material_params
+      params.require(:material).permit(:material_name, :stock_qty)
+    end
+  # end-of-private
 
-  end
+  # def require_same_user
+  #   # edit/delete only for their own records
+  # end
 
 
 

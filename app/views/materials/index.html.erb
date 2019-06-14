@@ -3,9 +3,20 @@
 
 <div class="center">
 
-  <%= link_to 'Create New', new_material_path, class:"btn btn-success btn-sm" %>
-  <%= link_to 'Export CSV', materials_path(format: "csv"), class:"btn btn-info btn-sm" %>
-  <br><br>
+  <br>
+
+  <div class="row">
+    <div class="col-6" align="left">
+      <%= link_to 'Home', root_path, class:"btn btn-danger btn-sm" %>
+    </div>
+    <div class="col-6" align="right">
+        <%= link_to 'Create New', new_material_path, class:"btn btn-success btn-sm" %>
+        <%= link_to 'Import CSV', materials_import_csv_path, class:"btn btn-dark btn-sm" %>
+        <%= link_to 'Export CSV', materials_path(format: "csv"), class:"btn btn-primary btn-sm" %>
+    </div>
+  </div>
+
+  <br>
 
   <table class="table table-bordered">
     <thead>
@@ -26,7 +37,6 @@
           <div class="btn-group" role="group" aria-label="Basic example">
             <%= link_to 'View', material_path(val), class:"btn btn-info btn-sm" %>
             <%= link_to 'Change', edit_material_path(val), class:"btn btn-warning btn-sm" %>
-            <!-- <button type="button" class="btn btn-danger btn-sm"> Delete </button> -->
             <%= link_to 'Delete', material_path(val),
                 method: :delete, data: { confirm: "Are you sure want to delete this article?"},
                 class: "btn btn-sm btn-danger" %>
