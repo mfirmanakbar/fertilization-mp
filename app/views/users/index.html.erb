@@ -1,4 +1,66 @@
 <h4>User Profile</h4>
 <hr>
 
-<%= @users %>
+<%# @userJobPosition %>
+
+<%# :id, :name, :username, :email, :role_id, :role_name %>
+
+<!-- <br><br> -->
+
+<%# @userJobPosition.each do |arr| %>
+  <%# val = UserJobPosition.new(arr) %>
+  <p><%# val.username %></p>
+<%# end %>
+
+
+<div class="center">
+  <br>
+  <div class="row">
+    <div class="col-6" align="left">
+      <%# link_to 'Home', dashboard_path, class:"btn btn-danger btn-sm" %>
+    </div>
+    <div class="col-6" align="right">
+        <%# link_to 'Create New', new_material_path, class:"btn btn-success btn-sm" %>
+        <%# link_to 'Import CSV', materials_import_csv_path, class:"btn btn-dark btn-sm" %>
+        <%# link_to 'Export CSV', materials_path(format: "csv"), class:"btn btn-primary btn-sm" %>
+    </div>
+  </div>
+
+  <br>
+
+  <table class="table table-bordered table-sm">
+    <thead>
+      <%# :id, :name, :username, :email, :role_id, :role_name %>
+      <tr align="center">
+        <th scope="col">No</th>
+        <th scope="col">Name</th>
+        <th scope="col">Username</th>
+        <th scope="col">Email</th>
+        <th scope="col">Job Position</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @userJobPosition.each_with_index do |arr, index| %>
+      <% val = UserJobPosition.new(arr) %>
+      <tr>
+        <th scope="row"><%= (index + 1) %></th>
+        <td align="center"><%= val.name %></td>
+        <td align="center"><%= val.username %></td>
+        <td align="center"><%= val.email %></td>
+        <td align="center"><%= val.role_name %></td>
+        <td align="center">
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <%# link_to 'View', material_path(val), class:"btn btn-info btn-sm" %>
+            <%# link_to 'Change', edit_material_path(val), class:"btn btn-warning btn-sm" %>
+            <%# link_to 'Delete', material_path(val),
+                method: :delete, data: { confirm: "Are you sure want to delete this article?"},
+                class: "btn btn-sm btn-danger" %>
+          </div>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>
