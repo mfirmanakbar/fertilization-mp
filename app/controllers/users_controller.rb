@@ -3,7 +3,16 @@ class UsersController < ApplicationController
   skip_before_action :require_user, only: [:new, :create]
 
   def index
-    # @userList = User.all
+    @users = User.all
+
+    @users = User.includes(:role)
+
+
+    # query = "SELECT * FROM USERS"
+    # @users = User.connection.execute(query, :skip_logging)
+
+    # @users = User.find_by_sql "SELECT * FROM USERS"
+
   end
 
   def new

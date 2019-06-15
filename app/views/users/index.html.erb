@@ -1,1 +1,11 @@
-user index
+<h4>User Profile</h4>
+<hr>
+
+<% @users.each_with_index do |val, index| %>
+  <p> Name <%= val.name %></p>
+  <p> Username <%= val.username %></p>
+  <p> Email <%= val.email %></p>
+  <p> Role ID <%= val.role_id %></p>
+  <p> Role NAME <%= val.role.id %></p>
+  <hr>
+<% end %>

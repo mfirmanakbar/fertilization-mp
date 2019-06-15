@@ -1,0 +1,21 @@
+<%= render 'shared/errors', obj: @role %>
+
+<div class="row">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-header"> Form Role </div>
+      <div class="card-body">
+
+        <%= form_for(@role, :html => {class: "form-horizontal", role: "form"} ) do |f| %>
+          <div class="form-group">
+            <label>Role Name</label>
+            <%= f.text_field :role_name, class: "form-control", placeholder: "Enter Role Name ..." %>
+          </div>
+          <%= f.submit 'Submit', class:"btn btn-primary" %>
+          <%= link_to 'Back', roles_path, class: "btn btn-danger" %>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>

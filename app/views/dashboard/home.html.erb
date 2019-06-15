@@ -1,14 +1,16 @@
 <ul>
   <li>
-    <%= link_to 'Material', materials_path %>
+    <%= link_to 'Material Stock', materials_path %>
   </li>
-  <li>Estate</li>
-  <li>Worker</li>
   <li>Outgoing Bon</li>
-  <li>Inspection</li>
-  <li>User Profile</li>
-  <li><b>Dashboard</b></li>
+  <li>Inspection Report</li>
   <li>
-    <%= link_to 'Log out', logout_path, method: :delete, class: ""%>
+    <%= link_to 'User Profile', users_path %>
+  </li>
+  <li>
+    <%= link_to 'Job Position', roles_path %>
+  </li>
+  <li>
+    <%= link_to 'Log out', logout_path, method: :delete %>
   </li>
 </ul>

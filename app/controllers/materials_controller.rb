@@ -7,7 +7,7 @@ class MaterialsController < ApplicationController
     @material_list = Material.all
     respond_to do |format|
       datenow = Time.now.strftime("%Y%d%m%H%M%S")
-      filenaming = ("material-" + datenow + ".csv")
+      filenaming = ("materials-" + datenow + ".csv")
       format.html
       format.csv { send_data @material_list.to_csv, :filename => filenaming }
       # format.json { render json: @material_list }
