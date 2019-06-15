@@ -1,9 +1,11 @@
 class SessionsController < ApplicationController
 
-  skip_before_action :require_user, only: [:new, :create]
+  skip_before_action :require_user, only: [:login, :create]
 
-  def new
-
+  def login
+    if logged_in?
+      redirect_to dashboard_path
+    end
   end
 
   def create
@@ -14,7 +16,7 @@ class SessionsController < ApplicationController
       redirect_to dashboard_path
     else
       flash[:danger] = "Failed to log in"
-      render 'new'
+      render 'login'
     end
   end
 

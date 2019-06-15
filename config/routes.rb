@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   # login page
-  root 'sessions#new'
+  root 'sessions#login'
 
   # dashboard
   get 'dashboard', to: 'dashboard#home'
@@ -14,9 +14,9 @@ Rails.application.routes.draw do
   get 'materials/download/template' => 'materials#download_template'
 
   # login and user
-  get 'signup', to: 'users#new'
-  resources :users, except: [:new]
-  get 'login', to: 'sessions#new'
+  get 'signup', to: 'users#signup'
+  resources :users #, except: [:new]
+  get 'login', to: 'sessions#login'
   post 'login', to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
 
