@@ -8,5 +8,7 @@
   <li>Inspection</li>
   <li>User Profile</li>
   <li><b>Dashboard</b></li>
-  <li><b>Logout</b></li>
+  <li>
+    <%= link_to 'Log out', logout_path, method: :delete, class: ""%>
+  </li>
 </ul>

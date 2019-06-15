@@ -1,5 +1,6 @@
 class MaterialsController < ApplicationController
 
+  # before_action :clear_all_msg
   before_action :set_material_by_id, only: [:edit, :update, :show, :destroy]
 
   def index
