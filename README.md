@@ -1,24 +1,56 @@
-# README
+## Beginner RoR
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Simple project for fertilization management project: https://fertilization-mp.herokuapp.com/
 
-Things you may want to cover:
+| Login  | Dashboard |
+| ------------- | ------------- |
+| ![img](https://i.ibb.co/hWWyCD4/Screenshot-1.png)  | ![img](https://i.ibb.co/VC1pMRz/Screenshot-2.png) |
 
-* Ruby version
 
-* System dependencies
 
-* Configuration
+## Deploy
 
-* Database creation
+> git push heroku master
 
-* Database initialization
+* then got error `Precompiling assets failed.`
 
-* How to run the test suite
+* checking assets/stylesheets/css wrong code / comment / the delete wrong code
 
-* Services (job queues, cache servers, search engines, etc.)
+> bundle exec rails assets:precompile RAILS_ENV=production
 
-* Deployment instructions
+* then commit and push
 
-* ...
+> git push heroku master
+
+* compile to heroku was successfully
+
+> heroku run rails db:migrate
+
+> heroku open
+
+gotcha ---> https://fertilization-mp.herokuapp.com/
+
+
+
+## Default DB
+
+> heroku run rails console
+
+* config default table value
+
+> role = Role.new
+> role.role_name = "ADMIN"
+> role.save
+
+> role = Role.new
+> role.role_name = "ASSISTANT"
+> role.save
+
+> role = Role.new
+> role.role_name = "GUEST"
+> role.save
+
+* Change role first user registered to ADMIN role
+
+> u = User.find(1)
+> u.update_column :role_id, 1
