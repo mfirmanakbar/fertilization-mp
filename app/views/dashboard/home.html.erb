@@ -1,23 +1,3 @@
-<% if false %>
-<ul>
-  <li>
-    <%= link_to 'Material Stock', materials_path %>
-  </li>
-  <li>Outgoing Bon</li>
-  <li>Inspection Report</li>
-  <li>
-    <%= link_to 'User Profile', users_path %>
-  </li>
-  <li>
-    <%= link_to 'Job Position', roles_path %>
-  </li>
-  <li>
-    <%= link_to 'Log out', logout_path, method: :delete %>
-  </li>
-</ul>
-<% end %>
-
-
 <div class="outers">
   <div class="middles">
     <div class="inners">
@@ -27,8 +7,6 @@
         obj = DashboardVo.new(list)
         %>
         <div class="col-sm-4">
-          <%# link_to 'Log out', logout_path, method: :delete %>
-          <%# if obj.linkto?(logout_path) %>
           <%= link_to obj.linkto do %>
           <div style="max-width:250px; padding:10px;">
             <div class="card">
@@ -46,6 +24,7 @@
         </div>
         <% end %>
       </div>
+      <p class="text-center text-muted"><small>User login : <%= session[:email] %> </small></p>
     </div>
   </div>
 </div>

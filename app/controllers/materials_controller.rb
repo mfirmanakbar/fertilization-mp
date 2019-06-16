@@ -65,7 +65,7 @@ class MaterialsController < ApplicationController
   end
 
   def download_template
-    send_file("#{Rails.root}/app/assets/template-material-import.csv",
+    send_file("#{Rails.root}/app/assets/files/download/template-material-import.csv",
       :type=> "application/csv",
       :disposition=> "attachment; filename=template-material-import.csv")
   end

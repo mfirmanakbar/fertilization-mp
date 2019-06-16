@@ -12,6 +12,7 @@ class UsersController < ApplicationController
   end
 
   def new
+    require_admin_users_page
     @user = User.new
   end
 
@@ -21,32 +22,39 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    if @user.save
-      if !logged_in?
-        flash[:success] = "Hi #{@user.email} your account was registered successfully. Please Log In."
-        redirect_to login_path
-      else
+    if logged_in?
+      # create user from dashboard
+      require_admin_users_page
+      if @user.save
         flash[:success] = "#{@user.email} was created successfully."
         redirect_to users_path
-      end
-    else
-      if !logged_in?
-        flash[:danger] = "Register was failed."
-        redirect_to new_user_path(@user)
       else
         flash[:danger] = "Failed to create user."
         redirect_to new_user_path(@user)
+      end
+    else
+      # signup
+      @user.role_id = 3 # hard code for GUEST
+      if @user.save
+        flash[:success] = "Hi #{@user.email} your account was registered successfully. Please Log In."
+        redirect_to login_path
+      else
+        flash[:danger] = "Register was failed."
+        redirect_to signup_path(@user)
       end
     end
   end
 
   def edit
+    require_admin_users_page
   end
 
   def show
+    require_admin_users_page
   end
 
   def update
+    require_admin_users_page
     if @user.update(user_params)
       flash[:success] = "#{@user.email} was updated successfully."
       redirect_to users_path
@@ -57,9 +65,14 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user.destroy
-    flash[:success] = "User have been deleted"
-    redirect_to users_path
+    if get_role_id != 1
+      flash[:danger] = "You have no permission to perform that action "
+      redirect_to users_path
+    else
+      @user.destroy
+      flash[:success] = "User have been deleted"
+      redirect_to users_path
+    end
   end
 
   private
@@ -71,8 +84,11 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
     end
 
-  def require_admin
-
+  def require_admin_users_page
+    if get_role_id != 1
+      flash[:danger] = "You have no permission to perform that action "
+      redirect_to users_path
+    end
   end
 
 end

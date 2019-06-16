@@ -14,13 +14,15 @@ class RolesController < ApplicationController
 
   def new
     @role = Role.new
+    require_admin_users_page
   end
 
   def edit
-
+    require_admin_users_page
   end
 
   def create
+    require_admin_users_page
     @role = Role.new(role_params)
     if @role.save
       flash[:success] = "Role was successfully created"
@@ -31,6 +33,7 @@ class RolesController < ApplicationController
   end
 
   def update
+    require_admin_users_page
     if @role.update(role_params)
       flash[:success] = "Role was successfully updated"
       redirect_to roles_path
@@ -40,9 +43,14 @@ class RolesController < ApplicationController
   end
 
   def destroy
-    @role.destroy
-    flash[:success] = "Role was successfully deleted"
-    redirect_to roles_path
+    if get_role_id != 1
+      flash[:danger] = "You have no permission to perform that action "
+      redirect_to roles_path
+    else
+      @role.destroy
+      flash[:success] = "Role was successfully deleted"
+      redirect_to roles_path
+    end
   end
 
   private
@@ -58,5 +66,12 @@ class RolesController < ApplicationController
       flash.clear
     end
   # end-of-private
+
+  def require_admin_users_page
+    if get_role_id != 1
+      flash[:danger] = "You have no permission to perform that action "
+      redirect_to roles_path
+    end
+  end
 
 end

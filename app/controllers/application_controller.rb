@@ -16,16 +16,16 @@ class ApplicationController < ActionController::Base
 
   # if someone not login then go to login page and show message below
   def require_user
-    # if !logged_in?
-    unless logged_in?
-      flash[:danger] = "You must be logged in to  perform that action"
+    if !logged_in?
+    # unless logged_in?
+      flash[:danger] = "You must be logged in to perform that action"
       redirect_to login_path
     end
   end
 
-  # clear all message first when other action execute
-  def clear_all_msg
-    flash.clear
+  def get_role_id
+    @role_id = User.find(session[:user_id]).role_id
   end
+
 
 end
