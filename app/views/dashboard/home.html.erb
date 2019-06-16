@@ -1,3 +1,4 @@
+<% if false %>
 <ul>
   <li>
     <%= link_to 'Material Stock', materials_path %>
@@ -14,3 +15,37 @@
     <%= link_to 'Log out', logout_path, method: :delete %>
   </li>
 </ul>
+<% end %>
+
+
+<div class="outers">
+  <div class="middles">
+    <div class="inners">
+      <div class="row">
+        <%
+        @list.each do |list|
+        obj = DashboardVo.new(list)
+        %>
+        <div class="col-sm-4">
+          <%# link_to 'Log out', logout_path, method: :delete %>
+          <%# if obj.linkto?(logout_path) %>
+          <%= link_to obj.linkto do %>
+          <div style="max-width:250px; padding:10px;">
+            <div class="card">
+              <div class="card-body text-center" style="height:180px;">
+                <%= image_tag obj.icon, style: 'width:80px;height:80px;' %>
+                <% if obj.underconstruction %>
+                <p class="card-title mt-3"><%= obj.name %><br><span class="badge badge-danger">Feature not ready</span></p>
+                <% else %>
+                <p class="card-title mt-3"><%= obj.name %><br><span class="badge badge-success">Ready</span></p>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <% end %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

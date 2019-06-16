@@ -1,0 +1,43 @@
+<div class="row mt-3 mb-5">
+  <div class="col-4 text-left">
+    <%= image_tag 'logo-full.png', style: 'width:200px; height:auto;' %>
+  </div>
+  <div class="col-8 text-right">
+    <ul class="nav nav-tabs justify-content-end">
+      <li class="nav-item">
+        <%= link_to 'Dashboard', dashboard_path, class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <% isActive = "nav-link" %>
+        <% if controller.controller_name == "materials" %>
+        <% isActive = "nav-link active" %>
+        <% end %>
+        <%= link_to 'Material', materials_path, class: isActive %>
+      </li>
+      <li class="nav-item">
+        <%= link_to 'Bon', dashboard_path, class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to 'Inspection', dashboard_path, class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <% isActive = "nav-link" %>
+        <% if controller.controller_name == "users"  %>
+        <% isActive = "nav-link active" %>
+        <% end %>
+        <%= link_to 'Profile', users_path, class: isActive %>
+      </li>
+      <li class="nav-item">
+        <% isActive = "nav-link" %>
+        <% if controller.controller_name == "roles"  %>
+        <% isActive = "nav-link active" %>
+        <% end %>
+        <%= link_to 'Job', roles_path, class: isActive %>
+      </li>
+      <li class="nav-item">
+        <%= link_to 'Log out', logout_path, method: :delete, class="nav-link" %>
+        <!-- <a class="nav-link" href="#">Logout</a> -->
+      </li>
+      </ul>
+  </div>
+</div>

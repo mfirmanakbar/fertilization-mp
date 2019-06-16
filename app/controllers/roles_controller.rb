@@ -17,6 +17,7 @@ class RolesController < ApplicationController
   end
 
   def edit
+
   end
 
   def create
@@ -51,6 +52,10 @@ class RolesController < ApplicationController
 
     def role_params
       params.require(:role).permit(:role_name)
+    end
+
+    def flash_clear
+      flash.clear
     end
   # end-of-private
 
