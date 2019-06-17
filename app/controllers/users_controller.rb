@@ -9,7 +9,6 @@ class UsersController < ApplicationController
           "from users u " +
           "left join roles r on r.id = u.role_id "
     @userJobPosition = ApplicationRecord.connection.execute(sql) # return hashmap
-    # @userJobPosition = JSON.pretty_generate(@userJobPosition)
   end
 
   def forget_password
@@ -19,10 +18,14 @@ class UsersController < ApplicationController
   def send_reset_password
     @user = User.new(user_params)
     if User.find_by_email(@user.email)
+      # update random password
       reset_new_password = SecureRandom.urlsafe_base64(5)
-      #user_update = User.find_by_email(@user.email)
-      #user_update.update_attribute(:password, reset_new_password)
-      flash[:success] = "Please check your inbox or spam in your email #{@user.email + " - " + reset_new_password}"
+      user_update = User.find_by_email(@user.email)
+      user_update.update_attribute(:password, reset_new_password)
+      # send email
+      NotificationMailer.notification_email(@user.email, reset_new_password).deliver_now
+      # msg
+      flash[:success] = "Please check your inbox or spam in your email #{@user.email}"
       redirect_to login_path
     else
       flash[:danger] = "#{@user.email} not registered in our system"
