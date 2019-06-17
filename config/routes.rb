@@ -24,4 +24,7 @@ Rails.application.routes.draw do
   # roles
   resources :roles
 
+  get 'forget', to: 'users#forget_password'
+  post 'send_reset_password', to: 'users#send_reset_password'
+
 end

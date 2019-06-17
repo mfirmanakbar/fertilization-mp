@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
 
+  require 'securerandom'
   before_action :set_user, only: [:edit, :update, :show, :destroy]
-  skip_before_action :require_user, only: [:signup, :create]
+  skip_before_action :require_user, only: [:signup, :create, :forget_password, :send_reset_password]
 
   def index
     sql = "select u.id, u.name, u.username, u.email, r.id as role_id, r.role_name " +
@@ -9,6 +10,24 @@ class UsersController < ApplicationController
           "left join roles r on r.id = u.role_id "
     @userJobPosition = ApplicationRecord.connection.execute(sql) # return hashmap
     # @userJobPosition = JSON.pretty_generate(@userJobPosition)
+  end
+
+  def forget_password
+    @model = User.new
+  end
+
+  def send_reset_password
+    @user = User.new(user_params)
+    if User.find_by_email(@user.email)
+      reset_new_password = SecureRandom.urlsafe_base64(5)
+      #user_update = User.find_by_email(@user.email)
+      #user_update.update_attribute(:password, reset_new_password)
+      flash[:success] = "Please check your inbox or spam in your email #{@user.email + " - " + reset_new_password}"
+      redirect_to login_path
+    else
+      flash[:danger] = "#{@user.email} not registered in our system"
+      redirect_to forget_path
+    end
   end
 
   def new
