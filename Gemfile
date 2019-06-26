@@ -6,6 +6,7 @@ ruby '2.5.5'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
 gem 'bcrypt', '~> 3.1.7'
+# gem 'mysql2', '~> 0.4.10'
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
 # Use Puma as the app server
@@ -41,10 +42,13 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # to import csv file into DB
 gem 'activerecord-import'
 
+
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'sqlite3'
+  # gem 'sqlite3'
   # gem 'pg'
+  gem 'mysql2', '~> 0.5.2'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 

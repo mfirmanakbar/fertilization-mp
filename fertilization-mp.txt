@@ -1,0 +1,185 @@
+Default Query Record:
+- insert admin account
+- insert all roles
+
+Login:
+-------------------------------------------------------------------------------------------
+email 							password 						role
+-------------------------------------------------------------------------------------------
+admin@admin.com					admin123						ADMIN
+assistant@assistant.com			assistant123					ASSISTANT
+guest@guest.com					guest123						GUEST
+-------------------------------------------------------------------------------------------
+
+
+Step:
+0. create project
+	- rails new blog
+1. generate table
+	- rails generate migration create_materials (fill it with column table)
+	- rails db:migrate (complile entity table genarete into database)
+	- rails db:rollback (if want to cancel schema)
+	- create model `app\models\material.rb`
+2. change to postgress
+	- type 'gem install pg' inside folder project
+	- hide gem sqlite change to gem pg in GEMFILE
+	- change database.yml config
+	- type 'bundle'
+	- type 'taps pull postgres://f3@localhost/f3_development http://user:password@localhost:5000'
+3. Create Dahsboard page
+	- change routes.rb
+	- create controller
+	- create the view folder and html page
+	- type 'rails routes' to checl all door opened
+4. implement bootrstrap
+	-- hide # gem 'duktape'
+	- `gem 'bootstrap-sass', '~> 3.4.1'` copy paste it into GEMFILE.  
+	- `gem 'sass-rails'`
+	- create file assets/stylesheets/custome.css.scss and add this
+	```
+	@import "bootstrap";
+	```
+	- open assets/javascripts/application.js add this as sequential
+	```
+	//= require rails-ujs
+	//= require jquery3
+	//= require popper
+	//= require bootstrap-sprockets
+	//= require activestorage
+	//= require turbolinks
+	//= require_tree .
+	```	
+	- add this in application.html.erb
+	```
+	<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+	```
+	- turn off server
+	- run bundle
+	- turn on server (rails s)
+5. How to Export CSV file
+	- add "require 'csv' " in config/application.rb
+	- add function like "def self.as_csv", look at file models/material.rb
+6. What is to_h / to_s etc ? 
+	- http://www.benjaminoakes.com/2013/03/08/all-about-to_h-in-ruby-2/
+	- to_h for Hash 
+	- to_s for String
+	- to_a for array
+7. How to update custome column and how to select by custome query
+	- irb> u.update_column :role_id, 3
+	- User.find_by_sql "select u.id from users u"
+8. How to create role and user (ERROR)
+	- rails generate model assignment role:reference user:reference
+	```
+	D:\ror\fertilization-mp>rails generate model assignment role:reference user:reference
+      invoke  active_record
+      create    db/migrate/20190615094111_create_assignments.rb
+      create    app/models/assignment.rb
+      invoke    test_unit
+      create      test/models/assignment_test.rb
+      create      test/fixtures/assignments.yml
+	```
+	- 
+
+
+My Demo Link: 
+
+## Create and Run
+
+*type
+> rails new ruby-blog
+> cd ruby-blog
+> rails server
+
+*then open http://localhost:3000/
+
+------------------------------------------ Mailler
+
+
+> rails generate mailer UserMailer                           
+		create  app/mailers/user_mailer.rb
+		+create  app/mailers/application_mailer.rb		
+		invoke  erb                                                              
+		create    app/views/user_mailer                                          
+		invoke  test_unit                                                        
+		create    test/mailers/user_mailer_test.rb                               
+		create    test/mailers/previews/user_mailer_preview.rb
+
+  :address              => 'smtp.gmail.com',
+  :port                 => 587,
+  :domain               => "gmail.com",
+  :user_name            => "futsalmen@gmail.com", #ENV['USERNAME'],
+  :password             => "futsalyukmen", #ENV['PASSWORD'],
+  :authentication       => "plain",
+  :enable_starttls_auto => true
+
+
+
+git push heroku
+heroku pg:reset DATABASE
+heroku run rails db:migrate
+heroku run rails db:seed
+heroku restart
+
+------------------------------------------ NOTE DEPLOY
+
+
+
+## Deploy
+
+> heroku git:clone -a fertilization-mp
+
+> git push heroku master
+
+* then got error `Precompiling assets failed.`
+
+* checking assets/stylesheets/css wrong code / comment / the delete wrong code
+
+> bundle exec rails assets:precompile RAILS_ENV=production
+
+* then commit and push
+
+> git push heroku master
+
+* compile to heroku was successfully
+
+> heroku run rails db:migrate
+
+> heroku open
+
+gotcha ---> https://fertilization-mp.herokuapp.com/ 
+
+
+
+## checking DB
+
+> heroku run rails console
+
+* config default table value
+
+> role = Role.new
+> role.role_name = "ADMIN"
+> role.save
+
+> role = Role.new
+> role.role_name = "ASSISTANT"
+> role.save
+
+> role = Role.new
+> role.role_name = "GUEST"
+> role.save
+
+* Change role first user registered to ADMIN role
+
+> u = User.find(1)
+> u.update_column :role_id, 1
+
+
+-------------------------------------------------------------------------------
+
+## How install database Mysql
+* inside our project install last version for mysql
+> gem install mysql2 -V 
+* then update gefile `gem 'mysql2', '~> 0.5.2'`
+* run 
+> bundle install
