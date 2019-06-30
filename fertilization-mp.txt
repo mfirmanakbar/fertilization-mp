@@ -178,8 +178,38 @@ gotcha ---> https://fertilization-mp.herokuapp.com/
 -------------------------------------------------------------------------------
 
 ## How install database Mysql
-* inside our project install last version for mysql
+* install last version for mysql
 > gem install mysql2 -V 
 * then update gefile `gem 'mysql2', '~> 0.5.2'`
 * run 
 > bundle install
+
+---------------------------------------------------------------------------------
+## associations
+> rails g migration AddUserToUploads user:references
+> rails g migration add_team_ref_to_developers team:references
+> rails generate model developer
+
+## associations client has_one ticket
+> rails g migration AddClientRefToTickets client:references
+
+## how to delete schema migration
+> rails db:migrate:status
+```
+	up     20190630043201  Create suppliers
+	up     20190630044035  Create accounts
+	up     20190630044950  Create account histories
+	up     20190630045247  Add ref supplier account histories
+```
+* we want to delete 20190630045247
+> rails db:migrate:down VERSION=20100905201547
+```
+	up     20190630043201  Create suppliers
+	up     20190630044035  Create accounts
+	up     20190630044950  Create account histories
+   down    20190630045247  Add ref supplier account histories
+```
+* we want to return 20190630045247
+> rails db:migrate:up VERSION=20100905201547
+* if want to drop all DB
+> rake db:migrate:reset
